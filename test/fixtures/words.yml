@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kaki: MyString
+  yomi: MyString
+  jisuu: 1
+  groove: MyString
+  boin: MyString
+  hinshi: MyString
+
+two:
+  kaki: MyString
+  yomi: MyString
+  jisuu: 1
+  groove: MyString
+  boin: MyString
+  hinshi: MyString

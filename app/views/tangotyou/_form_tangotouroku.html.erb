@@ -1,0 +1,53 @@
+<%= form_with(model: word) do |form| %>
+  <% if word.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(word.errors.count, "error") %> prohibited this word from being saved:</h2>
+
+      <ul>
+        <% word.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div>
+    <%= form.label "書き", style: "display: block" %>
+    <%= form.text_field :kaki %>
+  </div>
+
+  <div>
+    <%= form.label "読み", style: "display: block" %>
+    <%= form.text_field :yomi %>
+  </div>
+
+  <div>
+    <%= form.label "字数", style: "display: block" %>
+    <%= form.text_field :jisuu %>
+  </div>
+
+  <div>
+    <%= form.label "グルーヴ", style: "display: block" %>
+    <%= form.text_field :groove %>
+  </div>
+
+  <div>
+    <%= form.label "母音", style: "display: block" %>
+    <%= form.text_field :boin %>
+  </div>
+
+  <div>
+    <%= form.label "品詞", style: "display: block" %>
+    <%= form.text_field :hinshi %>
+  </div>
+  <div>
+    <%= form.label "カテゴリ", style: "display: block" %>
+    <%= form.text_field :category %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

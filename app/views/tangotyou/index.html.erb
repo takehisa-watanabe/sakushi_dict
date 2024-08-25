@@ -1,0 +1,201 @@
+<h1>単語帳</h1>
+
+<table border="1">
+
+<tr>
+    <th>
+        <%= form_tag(words_path,method: :post) do %>
+
+
+    </th>
+
+    <th>
+        <%= text_field_tag :yomi,"", size: 10%>
+    </th>
+
+    <th>
+        <%= text_field_tag :jisuu,"", size: 2%>
+    </th>
+
+    <th>
+        <%= text_field_tag :groove,"", size: 10%>
+    </th>
+
+    <th>
+        <%= text_field_tag :boin,"", size: 10%>
+    </th>
+
+    <th>
+        <%= text_field_tag :hinshi,"", size: 5%>
+    </th>
+    <th>
+        <%= text_field_tag :category,"", size: 5%>
+    </th>
+
+
+    <th>
+    </th>
+
+
+    <th>
+        <%= submit_tag "検索" %>
+        <%end%>
+    </th>
+
+</tr>
+
+
+
+<tr>
+    <th>
+        書き
+    </th>
+    <th>
+        読み
+    </th>
+    <th>
+        字数
+    </th>
+    <th>
+        グルーヴ
+    </th>
+    <th>
+        母音
+    </th>
+    <th>
+        品詞
+    </th>
+    <th>
+        カテゴリ
+    </th>
+    <th>
+        関連語
+    </th>
+    <th>
+    </th>
+    <th>
+    </th>
+</tr>
+
+<tr>
+    <th>
+        <%= form_tag(words_path,method: :get) do %>
+        <%= text_field_tag :kaki,"", size: 10%>
+
+
+    </th>
+
+    <th>
+        <%= text_field_tag :yomi,"", size: 10%>
+    </th>
+
+    <th>
+        <%= text_field_tag :jisuu,"", size: 2%>
+    </th>
+
+    <th>
+        <%= text_field_tag :groove,"", size: 10%>
+    </th>
+
+    <th>
+        <%= text_field_tag :boin,"", size: 10%>
+    </th>
+
+    <th>
+        <%= text_field_tag :hinshi,"", size: 5%>
+    </th>
+    <th>
+        <%= text_field_tag :category,"", size: 5%>
+    </th>
+
+
+    <th>
+    </th>
+
+
+    <th>
+        <%= submit_tag "新規作成" %>
+        <%end%>
+    </th>
+
+</tr>
+
+
+<%@words.each_with_index do |word,i|%>
+<tr>
+    <th>
+        <%=word.kaki%>
+    </th>
+
+    <th>
+        <%=word.yomi%>
+        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :yomi,"", size: 10%>
+        <%= submit_tag "変更" %>
+        <%end%>
+    </th>
+
+    <th>
+        <%=word.jisuu%>
+        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :jisuu,"", size: 2%>
+        <%= submit_tag "変更" %>
+        <%end%>
+    </th>
+
+    <th>
+        <%=word.groove%>
+        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :groove,"", size: 10%>
+        <%= submit_tag "変更" %>
+        <%end%>
+    </th>
+
+    <th>
+        <%=word.boin%>
+        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :boin,"", size: 10%>
+        <%= submit_tag "変更" %>
+        <%end%>
+    </th>
+
+    <th>
+        <%=word.hinshi%>
+        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :hinshi,"", size: 5%>
+        <%= submit_tag "変更" %>
+        <%end%>
+    </th>
+    <th>
+        <%=word.category%>
+        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :category,"", size: 5%>
+        <%= submit_tag "変更" %>
+        <%end%>
+    </th>
+
+    <th>
+        <%word.kanren_zenbu().each_with_index do |kanrengo,i|%>
+        <%if not i == 0 %>
+        ,
+        <%end%>
+        <%=kanrengo.kaki%>
+        <%end%>
+        <%= form_tag(kanrentouroku_path(moto:word.id),method: :post) do %>
+        <%= text_field_tag :title%>
+        <%= submit_tag "追加" %>
+        <%end%>
+
+
+        
+        
+    </th>
+
+
+    <th>
+        <%= button_to "削除", words_path,{params: {id:word.id}, method: :delete} %>
+    </th>
+</tr>
+<%end%>
+
+</table>

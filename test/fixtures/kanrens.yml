@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  moto_id: 1
+  saki_id: 1
+
+two:
+  moto_id: 1
+  saki_id: 1

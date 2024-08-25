@@ -1,0 +1,31 @@
+<%@words.each_with_index do |word,i|%>
+<%=word.kaki%>
+<%word.kanren_zenbu().each_with_index do |kanrengo,i|%>
+<%=kanrengo.kaki%>
+<%end%>
+<br>
+<%end%>
+<br>
+<table border="1">
+<tr>
+<%@things.each_with_index do |thing,i|%>
+<td><%=@things[i][0]%></td>
+
+<%@things[i][1].each_with_index do |thing,j|%>
+<%if not j==0%>
+<td></td>
+<%end%>
+<td><%=@things[i][1][j][0]%></td>
+
+<%@things[i][1][j][1].each_with_index do |thing,k|%>
+
+<%if not k==0%>
+<td></td>
+<td></td>
+<%end%>
+<td><%=@things[i][1][j][1][k]%></td>
+</tr>
+
+<%end%>
+<%end%>
+<%end%>

@@ -1,0 +1,17 @@
+hello world!
+<%= @aaa %>
+<br>
+<br>
+
+
+<%@things.each_with_index do |thing,i|%>
+<%=@things[i][0]%>
+<%@things[i][1].each_with_index do |thing,j|%>
+<%=@things[i][1][j][0]%>
+<%@things[i][1][j][1].each_with_index do |thing,k|%>
+<%=@things[i][1][j][1][k]%>
+
+
+<%end%>
+<%end%>
+<%end%>
