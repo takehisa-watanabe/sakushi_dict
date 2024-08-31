@@ -13,21 +13,25 @@ Rails.application.routes.draw do
 
   get "test" =>"test#test"
 
-  post "words", to: "tangotyou#index"
+  post "shinki"=> "tangotyou#shinki"
+
+  post "henkou"=> "tangotyou#henkou"
+
+  post "words"=> "tangotyou#index"
+
+  get "words/:id"=> "tangotyou#show", as: "word"
  
   get "words" => "tangotyou#index"
 
   #post "kanren", to: "tangotyou#kanren"
 
-  post "shinki", to: "tangotyou#shinki"
 
-  post "henkou", to: "tangotyou#henkou"
 
-  post "kanrentouroku", to: "tangotyou#kanrentouroku"
+  post "kanrentouroku"=> "tangotyou#kanrentouroku"
 
 
 
-  delete "words", to: "tangotyou#destroy"
+  delete "words"=> "tangotyou#destroy"
 
   
 

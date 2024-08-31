@@ -79,7 +79,7 @@
 
 <tr>
     <th>
-        <%= form_tag(words_path,method: :get) do %>
+        <%= form_tag(shinki_path, method: :post) do %>
         <%= text_field_tag :kaki,"", size: 10%>
 
 
@@ -124,51 +124,46 @@
 <%@words.each_with_index do |word,i|%>
 <tr>
     <th>
-        <%=word.kaki%>
+        <%= link_to word.kaki, word_path(word)%>
     </th>
 
     <th>
-        <%=word.yomi%>
+        <%=word.yomi%><br>
         <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
         <%= text_field_tag :yomi,"", size: 10%>
-        <%= submit_tag "変更" %>
-        <%end%>
+
     </th>
 
     <th>
-        <%=word.jisuu%>
-        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%=word.jisuu%><br>
+
         <%= text_field_tag :jisuu,"", size: 2%>
-        <%= submit_tag "変更" %>
-        <%end%>
+
     </th>
 
     <th>
-        <%=word.groove%>
-        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%=word.groove%><br>
+
         <%= text_field_tag :groove,"", size: 10%>
-        <%= submit_tag "変更" %>
-        <%end%>
+
     </th>
 
     <th>
-        <%=word.boin%>
-        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%=word.boin%><br>
+
         <%= text_field_tag :boin,"", size: 10%>
-        <%= submit_tag "変更" %>
-        <%end%>
+
     </th>
 
     <th>
-        <%=word.hinshi%>
-        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%=word.hinshi%><br>
+
         <%= text_field_tag :hinshi,"", size: 5%>
-        <%= submit_tag "変更" %>
-        <%end%>
+
     </th>
     <th>
-        <%=word.category%>
-        <%= form_tag(henkou_path(moto:word.id),method: :post) do %>
+        <%=word.category%><br>
+
         <%= text_field_tag :category,"", size: 5%>
         <%= submit_tag "変更" %>
         <%end%>
@@ -199,3 +194,6 @@
 <%end%>
 
 </table>
+<br>
+<br>
+<br>
