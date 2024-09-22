@@ -3,7 +3,9 @@ $ git clone https://github.com/takehisa-watanabe/sakushi_dict.git<br>
 $ cd sakushi_dict<br>
 $ rails s<br>
 <br>
-<br>作詞のための単語帳です
+<br>
+<br>個人的な音楽活動のために開発した作詞のための単語帳です。
+<br>
 <br>
 <br>【全件表示ページ】
 <br>
@@ -43,6 +45,6 @@ $ rails s<br>
 <br>
 <br>をテーブル上に表示します。
 <br>
-<br>
-<br>
+<br>テーブルの上に位置するセレクトボックスから"4"を選び送信ボタンを押すと、
+<br>追加で「関連語の関連語の関連語の関連語」までテーブルに表示されます。
 <br>
