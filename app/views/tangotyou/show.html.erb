@@ -1,10 +1,30 @@
-<%=@word%>
-
-<%@kanren_to_kanren.each_with_index do |kanren,i|%>
-<%=kanren[0]%>
-<%end%>
-
+<%= link_to "toppage", words_path%> <%=@relate%>
+<br>
+<br>
 <table border="1">
+  <tr>
+    <th>
+        書き
+    </th>
+    <th>
+        読み
+    </th>
+    <th>
+        字数
+    </th>
+    <th>
+        グルーヴ
+    </th>
+    <th>
+        母音
+    </th>
+    <th>
+        品詞
+    </th>
+    <th>
+        カテゴリ
+    </th>
+</tr>
 <tr>
     <th>
         <%= @word.kaki%>
@@ -34,8 +54,35 @@
     </th>
 </table>
 
+<br><br>
 <br>
-<h1>関連語</h1>
+<table border="1">
+  <tr>
+    <th>
+      関連語登録
+    </th>
+  </tr>  
+  <tr>
+    <th>
+        <%= form_tag(kanrentouroku_show_path(moto:@word.id),method: :post) do %>
+        <%= text_field_tag :title%>
+        <%= submit_tag "追加" %>
+        <%end%>
+    </th>
+  </tr>
+</table>
+
+
+<br>
+<h1>"<%=@word.kaki%>"の関連語</h1>
+<br>
+<br>
+
+<%= form_with url:word_path(id:@id),method:"get", class: 'form' do |f| %>
+    <%= f.select :relate, {'4': 4, '3': 3}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+    <%= f.submit '送信', class: 'btn btn-primary btn-block' %>
+<% end %>
+
 <table border="1" id="targetTable">
 <tr>
     <th width="150">
@@ -47,79 +94,173 @@
     <th width="150">
         3
     </th>
+
     <th width="150">
         4
     </th>
+
 </tr>
+
 <tr>
-    <%@kanren_to_kanren.each do |kanren|%>
+  <%@kanren_to_kanren.each do |kanren|%>
     
-
     <%celllength1 = kanren[1].size%>
-      <%kanren[1].each do |kanren2|%>
-        <%if kanren2[1].size>=1%>
+
+    <%kanren[1].each do |kanren2|%>
+      <%if kanren2[1].size>=1%>
         <%celllength1 = celllength1 + kanren2[1].size-1%>
-        <%end%>
-        <%kanren2[1].each do |kanren3|%>
-          <%if kanren3[1].size>=1%>
-          <%celllength1 = celllength1 + kanren3[1].size-1%>
-          <%end%>
-        <%end%>
       <%end%>
-        <%if celllength1 == 0%>
-        <%celllength1 = 1%>
-        <%end%>
-      <th rowspan = <%=celllength1.to_s%>>
-      <%=kanren[0]%>
-      </th>
-        <%if kanren[1][0]==nil%>
-        <th></th><th></th><th></th></tr>
-        <%end%>
-      <%kanren[1].each_with_index do |kanren2,i|%>
-
-
-       <%celllength2 = kanren2[1].size%>
-         <%kanren2[1].each do |kanren3|%>
-         <%if kanren3[1].size>=1%>
-           <%celllength2 = celllength2 + kanren3[1].size-1%>
-
-          <%end%>
-         <%end%>
-        <%if celllength2 == 0%>
-        <%celllength2 = 1%>
-        <%end%>
-
-
-
-
-        <th rowspan = <%=celllength2.to_s%>>
-          <%=kanren2[0]%>
-        </th>
-        <%if kanren2[1][0]==nil%>
-        <th></th><th></th></tr>
-        <%end%>
-        <%kanren2[1].each do |kanren3|%>
-        <%celllength3 = kanren3[1].size%>
-        <%if celllength3 == 0%>
-        <%celllength3 = 1%>
-        <%end%>
-
-        <th rowspan = <%=celllength3.to_s%>>
-          <%=kanren3[0]%>
-        </th>
-        <%if kanren3[1][0]==nil%>
-        <th></th></tr>
-        <%end%>
-          <%kanren3[1].each_with_index do |kanren4,k|%>
-
-            <th>
-              <%=kanren4[0]%>
-            </th>
-</tr>
-          <%end%>
+      <%kanren2[1].each do |kanren3|%>
+        <%if kanren3[1].size>=1%>
+          <%celllength1 = celllength1 + kanren3[1].size-1%>
         <%end%>
       <%end%>
     <%end%>
+    <%if celllength1 == 0%>
+      <%celllength1 = 1%>
+    <%end%>
+    <th rowspan = <%=celllength1.to_s%>>
+      <%= link_to kanren[0].kaki, word_path(kanren[0])%>
+    </th>
+    <%if kanren[1][0]==nil%>
+      <th></th><th></th><th></th></tr>
+    <%end%>
+    <%kanren[1].each_with_index do |kanren2,i|%>
+
+      <%celllength2 = kanren2[1].size%>
+      <%kanren2[1].each do |kanren3|%>
+        <%if kanren3[1].size>=1%>
+          <%celllength2 = celllength2 + kanren3[1].size-1%>
+        <%end%>
+      <%end%>
+      <%if celllength2 == 0%>
+        <%celllength2 = 1%>
+      <%end%>
+
+
+
+
+      <th rowspan = <%=celllength2.to_s%>>
+        <%= link_to kanren2[0].kaki, word_path(kanren2[0])%>
+      </th>
+      <%if kanren2[1][0]==nil%>
+        <th></th><th></th></tr>
+      <%end%>
+      <%kanren2[1].each do |kanren3|%>
+        <%celllength3 = kanren3[1].size%>
+        <%if celllength3 == 0%>
+          <%celllength3 = 1%>
+        <%end%>
+
+        <th rowspan = <%=celllength3.to_s%>>
+          <%= link_to kanren3[0].kaki, word_path(kanren3[0])%>
+        </th>
+        <%if kanren3[1][0]==nil%>
+          <th></th></tr>
+        <%end%>
+
+            
+        <%kanren3[1].each_with_index do |kanren4,k|%>
+        
+          <th>
+            <%if @relate == "4"%>
+              <%= link_to kanren4[0].kaki, word_path(kanren4[0])%>
+            <%end%>
+          </th>
+        
+
+</tr>
+        <%end%>
+      <%end%>
+    <%end%>
+  <%end%>
 
 
 </table>
+
+<br>
+<br>
+<br>
+<h1>"<%=@word.kaki%>"の関連語</h1>
+<br>
+<table border="1">
+  <tr>
+    <th>
+      関連語登録
+    </th>
+  </tr>  
+  <tr>
+    <th>
+        <%= form_tag(kanrentouroku_show_path(moto:@word.id),method: :post) do %>
+        <%= text_field_tag :title%>
+        <%= submit_tag "追加" %>
+        <%end%>
+    </th>
+  </tr>
+</table>
+
+<br>
+
+<table border="1">
+  <tr>
+    <th width="500">
+      動詞
+    </th>
+    <th width="500">
+      形容詞，形容動詞
+    </th>
+    <th width="500">
+      副詞
+    </th>
+  </tr>  
+  <tr>
+    <th>
+      <%@doushi.each_with_index do |doushi,i|%>
+      <%if not i == 0%>
+      ，
+      <%end%>
+      <%if @kanrengo_1.include?(doushi)%>
+      <font color="orange">
+      <%=doushi.kaki%>
+      </font>
+      <%else%>
+      <%=doushi.kaki%>
+      <%end%>
+      <%end%>
+    </th>
+    <th>
+      <%@keiyoushi.each_with_index do |keiyoushi,i|%>
+      <%if not i == 0%>
+      ，
+      <%end%>
+      <%if @kanrengo_1.include?(keiyoushi)%>
+      <font color="orange">
+      <%=keiyoushi.kaki%>
+      </font>
+      <%else%>
+      <%=keiyoushi.kaki%>
+      <%end%>
+      <%end%>
+    </th>
+    <th>
+      <%@fukushi.each_with_index do |fukushi,i|%>
+      <%if not i == 0%>
+      ，
+      <%end%>
+      <%if @kanrengo_1.include?(fukushi)%>
+      <font color="orange">
+      <%=fukushi.kaki%>
+      </font>
+      <%else%>
+      <%=fukushi.kaki%>
+      <%end%>
+      <%end%>
+    </th>
+  </tr>
+</table>
+
+<br>
+<%= link_to "toppage", words_path%>
+<br>
+<br>
+<br>

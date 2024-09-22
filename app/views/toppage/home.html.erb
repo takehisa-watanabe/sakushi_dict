@@ -1,17 +1,17 @@
-hello world!
-<%= @aaa %>
+<script>
+
+
+window.onload = function () {
+  const book = document.getElementById('alert').value
+  alert(book);
+}
+
+
+
+</script>
+
+<input type="hidden" id="alert" value="<%= @aaa %>">
 <br>
 <br>
 
-
-<%@things.each_with_index do |thing,i|%>
-<%=@things[i][0]%>
-<%@things[i][1].each_with_index do |thing,j|%>
-<%=@things[i][1][j][0]%>
-<%@things[i][1][j][1].each_with_index do |thing,k|%>
-<%=@things[i][1][j][1][k]%>
-
-
-<%end%>
-<%end%>
-<%end%>
+<%= link_to "toppage", words_path%>

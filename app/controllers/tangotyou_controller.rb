@@ -51,37 +51,73 @@ class TangotyouController < ApplicationController
     redirect_to words_path
   end
 
+  def kanrentouroku_show
+    moto = Word.find(params[:moto])
+    moto.kanren_touroku(params[:title])
+    redirect_to word_path(params[:moto])
+  end
+
   # 各項目変更
   def henkou
     p params
     word_params = params.permit(:yomi, :jisuu, :groove, :boin, :hinshi, :category)
     this_word = Word.find(params[:moto])
+
+
+    if word_params[:yomi] == ""
+      word_params[:yomi] = this_word.yomi
+    end
+    if word_params[:jisuu] == ""
+      word_params[:jisuu] = this_word.jisuu
+    end
+    if word_params[:groove] == ""
+      word_params[:groove] = this_word.groove
+    end
+    if word_params[:boin] == ""
+      word_params[:boin] = this_word.boin
+    end
+    if word_params[:hinshi] == ""
+      word_params[:hinshi] = this_word.hinshi
+    end
+    if word_params[:category] == ""
+      word_params[:category] = this_word.category
+    end
+
     this_word.update(word_params)
     redirect_to words_path
   end
 
 
-
+  # 個別表示
   def show
     @word = Word.find(params[:id])
-
+    @id = params[:id]
     @kanren_to_kanren = []
+    @kishutsu = [@word]
 
-    @kishutsu = [@word.kaki]
+    @relate = params[:relate]
+
+    @doushi = Word.where(hinshi: "動詞")
+    @keiyoushi = Word.where(hinshi: "形容詞").or(Word.where(hinshi: "形容動詞"))
+    @fukushi = Word.where(hinshi: "副詞")
 
 
+    @kanrengo_1 = @word.kanren_zenbu()
 
     def kanrengo_st(word)
-      kanren_tsuika = [word.kaki,[]]
-      @kishutsu.push(word.kaki)
+      kanren_tsuika = [word,[]]
+      @kishutsu.push(word)
       kanren_tsuika
     end
 
 
     def kanrengo_list(word,group)
+#      if word.category == "True"
+#        return
+#      end
       kanrengo = word.kanren_zenbu()
       kanrengo.each_with_index do |kanren,i|
-        if @kishutsu.include?(kanren.kaki) == false
+        if @kishutsu.include?(kanren) == false
           group.push(kanrengo_st(kanren))
         end
       end
@@ -90,19 +126,19 @@ class TangotyouController < ApplicationController
     kanrengo_list(@word,@kanren_to_kanren)
 
     @kanren_to_kanren.each do |kanren|
-      kanrengo_list(Word.find_by(kaki:kanren[0]),kanren[1])
+      kanrengo_list(kanren[0],kanren[1])
     end
 
     @kanren_to_kanren.each do |kanren|
       kanren[1].each do |kanren2|
-        kanrengo_list(Word.find_by(kaki:kanren2[0]),kanren2[1])
+        kanrengo_list(kanren2[0],kanren2[1])
       end
     end
 
     @kanren_to_kanren.each do |kanren|
       kanren[1].each do |kanren2|
         kanren2[1].each do |kanren3|
-          kanrengo_list(Word.find_by(kaki:kanren3[0]),kanren3[1])
+          kanrengo_list(kanren3[0],kanren3[1])
         end
       end
     end
@@ -111,7 +147,7 @@ class TangotyouController < ApplicationController
       kanren[1].each do |kanren2|
         kanren2[1].each do |kanren3|
           kanren3[1].each do |kanren4|
-            kanrengo_list(Word.find_by(kaki:kanren4[0]),kanren4[1])
+            kanrengo_list(kanren4[0],kanren4[1])
           end
         end
       end
@@ -121,12 +157,8 @@ class TangotyouController < ApplicationController
     p @kanren_to_kanren
     p @kishutsu
 
-    
-
-
-
-
   end
+
 
   # 削除
   def destroy

@@ -21,13 +21,12 @@ Rails.application.routes.draw do
 
   get "words/:id"=> "tangotyou#show", as: "word"
  
-  get "words" => "tangotyou#index"
-
-  #post "kanren", to: "tangotyou#kanren"
-
+  get "words" => "tangotyou#index", as: "wordsindex"
 
 
   post "kanrentouroku"=> "tangotyou#kanrentouroku"
+
+  post "kanrentouroku_show"=> "tangotyou#kanrentouroku_show"
 
 
 
