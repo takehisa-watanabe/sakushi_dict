@@ -3,7 +3,6 @@ $ git clone https://github.com/takehisa-watanabe/sakushi_dict.git<br>
 $ cd sakushi_dict<br>
 $ rails s<br>
 <br>
-<br>
 <br>個人的な音楽活動のために開発した作詞のための単語帳です。
 <br>
 <br>
